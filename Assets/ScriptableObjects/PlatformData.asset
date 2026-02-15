@@ -20,3 +20,5 @@ MonoBehaviour:
   - {fileID: 7031953976995044971, guid: 9868233a309934fbfb2edfd37b8caadd, type: 3}
   - {fileID: 851697324259251086, guid: ff0542ed195ac466cbabd2206fa881dd, type: 3}
   - {fileID: 851697324259251086, guid: 2d877f05cf5514f8d84e544042d5df95, type: 3}
+  firstPlank: {fileID: 6083119119612421198, guid: a5b1909b2d7c14136a5834841a2455a5, type: 3}
+  lastPlank: {fileID: 6083119119612421198, guid: 9d02b595d22b24e569ab052a6da8a3fa, type: 3}

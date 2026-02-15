@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,8 +8,24 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] SpriteRenderer playerVisuals;
     [SerializeField] Color playerRed;
     [SerializeField] Color playerBlue;
+    [Header("Movement Values")]
     [SerializeField] float speed = 6f;
     [SerializeField] float jumpForce = 8f;
+    [SerializeField] float slideDuration = 3f;
+    [Header("Sliding Visuals")]
+    [SerializeField] Vector2 characterNormalScale,characterSlideScale;
+    [SerializeField] Vector2 colloiderNormalOffset,colloiderSlideOffset;
+    [SerializeField] Vector2 colloiderNormalSize,colloiderSlideSize;
+    private bool isSliding;
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundRadius = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
+    private bool isGrounded;
+
+    private float direction;
+    private Transform character;
+    private BoxCollider2D boxCollider;
 
     Rigidbody2D rb;
 
@@ -24,15 +41,22 @@ public class PlayerNetwork : NetworkBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        character = transform.GetChild(0);
+        playerVisuals.sortingOrder++;
     }
     public override void OnNetworkSpawn()
     {
         GameManager.instance.OnGameStartEvent += OnGameStart;
+        MovementUI.OnTouchMove += GetTouchInput;
+        JumpSlideUI.OnJump += JumpInput;
+        JumpSlideUI.OnSlide += SlideInput;
         if (IsServer)
         {
             AssignColor();
         }
     }
+
 
     void OnGameStart(object sender,EventArgs e)
     {
@@ -78,12 +102,30 @@ public class PlayerNetwork : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-
-        float dir = Input.GetAxis("Horizontal");
+        float dir = direction;
         MoveServerRpc(dir);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            JumpServerRpc();
+            
+    }
+    void FixedUpdate()
+    {
+        if (!IsServer) return;
+        CheckGround();
+    }
+    void GetTouchInput(float dir)
+    {
+        direction = dir;
+    }
+    void JumpInput()
+    {
+        Debug.Log($"Nawin Got JumpInput Grounded :{isGrounded} sliding :{isSliding}");
+        if(!IsOwner) return;
+        JumpServerRpc();
+    }
+    void SlideInput()
+    {
+        Debug.Log($"Nawin Got SlideInput Grounded :{isGrounded} sliding :{isSliding}");
+        if(!IsOwner) return;
+        SlideServerRpc();
     }
 
     [Rpc(SendTo.Server)]
@@ -95,6 +137,52 @@ public class PlayerNetwork : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void JumpServerRpc()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if (!isGrounded && !isSliding){
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    void SlideServerRpc()
+    {
+        if (!isGrounded && !isSliding)
+        {
+            StartCoroutine(SlideRoutine());
+        }
+    }
+    private void CheckGround()
+    {
+        isGrounded = Physics2D.OverlapCircle(
+            groundCheck.position,
+            groundRadius,
+            groundLayer
+        );
+    }
+    private IEnumerator SlideRoutine()
+    {
+        isSliding = true;
+        float elapse = 0;
+        float t;
+        while(elapse < 0.5f)
+        {
+            t = elapse/0.5f;
+            character.localScale = Vector2.Lerp(characterNormalScale,characterSlideScale,t);
+            boxCollider.size = Vector2.Lerp(colloiderNormalSize,colloiderSlideSize,t);
+            boxCollider.offset = Vector2.Lerp(colloiderNormalOffset,colloiderSlideOffset,t);
+            elapse += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(slideDuration);
+        elapse = 0;
+        while(elapse < 0.5f)
+        {
+            t = elapse/0.5f;
+            character.localScale = Vector2.Lerp(characterSlideScale,characterNormalScale,t);
+            boxCollider.size = Vector2.Lerp(colloiderSlideSize,colloiderNormalSize,t);
+            boxCollider.offset = Vector2.Lerp(colloiderSlideOffset,colloiderNormalOffset,t);
+            elapse += Time.deltaTime;
+            yield return null;
+        }
+        isSliding = false;
     }
 }

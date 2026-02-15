@@ -21,6 +21,10 @@ public class UIStateMachine : MonoBehaviour
     }
     void Start()
     {
+        foreach (UIBaseStates state in uiStatesList)
+        {
+            state.gameObject.SetActive(false);
+        }
         ChangeState(uiStatesList[0]);
     }
     public void ChangeState(UIBaseStates targetState)

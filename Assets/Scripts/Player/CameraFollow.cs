@@ -4,7 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float xOffset = 3f;
-    [SerializeField] private float fixedY = 0f;
+    [SerializeField] private float yOffset = 1f;
 
     void OnEnable()
     {
@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos.x = target.position.x + xOffset;
-        pos.y = target.position.y;
+        pos.y = target.position.y + yOffset;
         transform.position = pos;
     }
     void SetTarget(Transform player)
