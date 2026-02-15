@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762a8ffc94286449f84c41f704d5e1f3, type: 3}
+  m_Name: PlatformData
+  m_EditorClassIdentifier: Assembly-CSharp::PlatformData
+  length: 10
+  obstacleFrequency: 2
+  plainPlank: {fileID: 6083119119612421198, guid: 8597b7a247187429aa6fedcb8227e622, type: 3}
+  obstaclePlanks:
+  - {fileID: 7031953976995044971, guid: 4c169eedf92a244fc98ebda0c9ee55eb, type: 3}
+  - {fileID: 7031953976995044971, guid: 9868233a309934fbfb2edfd37b8caadd, type: 3}
+  - {fileID: 851697324259251086, guid: ff0542ed195ac466cbabd2206fa881dd, type: 3}
+  - {fileID: 851697324259251086, guid: 2d877f05cf5514f8d84e544042d5df95, type: 3}
