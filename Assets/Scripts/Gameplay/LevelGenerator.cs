@@ -24,7 +24,7 @@ public class LevelGenerator : NetworkBehaviour
         for(int i = 0; i < platformData.length; i++)
         {
             GameObject prefab;
-            if (i % platformData.obstacleFrequency != 0){
+            if (i != 0 && i % platformData.obstacleFrequency != 0){
                 prefab = platformData.plainPlank;
             }
             else{

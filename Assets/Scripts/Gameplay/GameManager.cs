@@ -7,7 +7,6 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
     public event EventHandler OnGameStartEvent;
-
     void Awake()
     {
         if (instance == null)
@@ -19,10 +18,6 @@ public class GameManager : NetworkBehaviour
             Destroy(gameObject);
             return;
         }
-    }
-    void Start()
-    {
-        
     }
     public override void OnNetworkSpawn()
     {

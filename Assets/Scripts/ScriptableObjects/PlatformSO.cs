@@ -9,4 +9,6 @@ public class PlatformSO : ScriptableObject
     public int obstacleFrequency = 3;
     public GameObject plainPlank;
     public GameObject[] obstaclePlanks;
+    public GameObject firstPlank;
+    public GameObject lastPlank;
 }
