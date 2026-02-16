@@ -280,10 +280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChunkBehaviour
   spawnPoint: {fileID: 216390034024821969}
-  coinPoints:
-  - {fileID: 4390709581506224244}
-  - {fileID: 1666688021416331260}
-  - {fileID: 7928045295194303915}
 --- !u!114 &-5661437669794001399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +316,7 @@ GameObject:
   - component: {fileID: 7818989688615370578}
   - component: {fileID: 3157675308392222611}
   - component: {fileID: 8776171093269577624}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Group-7
   m_TagString: Ground
   m_Icon: {fileID: 0}

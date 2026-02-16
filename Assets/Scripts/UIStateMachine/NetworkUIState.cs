@@ -34,7 +34,7 @@ public class NetworkUIState : UIBaseStates
     void ClientOnClick()
     {
         UnityTransport transport = (UnityTransport) NetworkManager.Singleton.NetworkConfig.NetworkTransport;
-        transport.ConnectionData.Address = "127.0.0.1";
+        //transport.ConnectionData.Address = "192.168.1.39";
         NetworkManager.Singleton.StartClient();
     }
 }

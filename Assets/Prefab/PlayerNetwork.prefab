@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3990367068601970739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1668894917448543037}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 3384376276100403790}
   - component: {fileID: 4640247356200428903}
   - component: {fileID: -6793563110678830408}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerNetwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   playerRed: {r: 1, g: 0, b: 0, a: 1}
   playerBlue: {r: 0, g: 0.36487365, b: 1, a: 1}
   speed: 10
-  jumpForce: 5
+  jumpForce: 10
   slideDuration: 3
   characterNormalScale: {x: 1.5, y: 3}
   characterSlideScale: {x: 1.5, y: 1.3}
@@ -305,7 +305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4945815567686303354}
   - component: {fileID: 4528505390889408357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

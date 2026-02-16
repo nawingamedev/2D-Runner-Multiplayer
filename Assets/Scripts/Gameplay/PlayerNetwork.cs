@@ -22,7 +22,8 @@ public class PlayerNetwork : NetworkBehaviour
     [SerializeField] private float groundRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
     private bool isGrounded;
-
+    private float lastDir;
+    private float sendTimer;
     private float direction;
     private Transform character;
     private BoxCollider2D boxCollider;
@@ -37,6 +38,8 @@ public class PlayerNetwork : NetworkBehaviour
         NetworkVariableWritePermission.Server);
 
     public static Action<Transform> OnSetCameraTarget;
+    public static Action<PlayerId> OnSetPlayerId;
+    public static Action<PlayerId> OnGameOverEvent;
 
     void Awake()
     {
@@ -69,8 +72,10 @@ public class PlayerNetwork : NetworkBehaviour
 
         UpdateColor();
 
-        if (IsOwner)
+        if (IsOwner){
             OnSetCameraTarget?.Invoke(transform);
+            OnSetPlayerId?.Invoke(playerColor.Value);
+        }
     }
 
     void AssignColor()
@@ -103,13 +108,15 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (!IsOwner) return;
         float dir = direction;
-        MoveServerRpc(dir);
-            
-    }
-    void FixedUpdate()
-    {
-        if (!IsServer) return;
-        CheckGround();
+        sendTimer += Time.deltaTime;
+
+        if (Mathf.Abs(lastDir - dir) > 0.01f || sendTimer > 0.1f)
+        {
+            lastDir = dir;
+            sendTimer = 0;
+            MoveServerRpc(dir);
+        }
+
     }
     void GetTouchInput(float dir)
     {
@@ -137,7 +144,8 @@ public class PlayerNetwork : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void JumpServerRpc()
     {
-        if (!isGrounded && !isSliding){
+        CheckGround();
+        if (isGrounded && !isSliding){
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
@@ -145,10 +153,18 @@ public class PlayerNetwork : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void SlideServerRpc()
     {
-        if (!isGrounded && !isSliding)
+        CheckGround();
+        if (isGrounded && !isSliding)
         {
             StartCoroutine(SlideRoutine());
+            SlideClientRpc();
         }
+    }
+    [Rpc(SendTo.Everyone)]
+    void SlideClientRpc()
+    {
+        if (!isSliding)
+            StartCoroutine(SlideRoutine());
     }
     private void CheckGround()
     {
@@ -157,6 +173,7 @@ public class PlayerNetwork : NetworkBehaviour
             groundRadius,
             groundLayer
         );
+        Debug.Log($"Nawin Actual Ground {isGrounded} ");
     }
     private IEnumerator SlideRoutine()
     {
@@ -184,5 +201,16 @@ public class PlayerNetwork : NetworkBehaviour
             yield return null;
         }
         isSliding = false;
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Nawin Collision before Owner");
+        if(!IsServer) return;
+        Debug.Log("Nawin Collision On Owner" + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            Debug.Log($"Nawin Player {playerColor.Value} Win!!");
+            OnGameOverEvent?.Invoke(playerColor.Value);
+        }
     }
 }
