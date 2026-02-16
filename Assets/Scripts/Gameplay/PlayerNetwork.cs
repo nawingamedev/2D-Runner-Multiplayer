@@ -64,6 +64,7 @@ public class PlayerNetwork : NetworkBehaviour
     void OnGameStart(object sender,EventArgs e)
     {
         playerColor.OnValueChanged += OnPlayerColorChanged;
+        
 
         if (IsServer)
         {
@@ -92,7 +93,6 @@ public class PlayerNetwork : NetworkBehaviour
             transform.position = new Vector3(5, 2);
         else
             transform.position = new Vector3(8, 2);
-        direction = 0;
     }
 
     void OnPlayerColorChanged(PlayerId oldVal, PlayerId newVal)

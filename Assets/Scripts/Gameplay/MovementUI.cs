@@ -11,7 +11,7 @@ public class MovementUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     [SerializeField] float maxSwipeDistance = 300f; 
     [SerializeField] float sensitivity = 1f;   
 
-    private bool isHolding;
+    public bool isHolding;
     private float startPosX;
     private float currentDir;
 
@@ -46,6 +46,5 @@ public class MovementUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     {
         if(!isHolding) currentDir = 0;
         OnTouchMove?.Invoke(currentDir);
-        Debug.Log($"Directions {currentDir}");
     }
 }

@@ -1,21 +1,29 @@
+using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using WebSocketSharp;
 
 public class NetworkUIState : UIBaseStates
 {
-    [SerializeField] Button hostButton;
-    [SerializeField] Button clientButton;
+    [SerializeField] GameObject lobbyItemPrefab;
+    [SerializeField] Transform lobbyContent;
+    [SerializeField] Button refreshBtn;
+    [SerializeField] Button craeteRoomBtn;
+    [SerializeField] TMP_InputField roomName;
     void Awake()
     {
         stateName = uiStateName.NetworkState;
-        //hostButton.onClick.AddListener(HostOnClick);
-        //clientButton.onClick.AddListener(ClientOnClick);
+        refreshBtn.onClick.AddListener(RefreshLobbyList);
+        craeteRoomBtn.onClick.AddListener(CreateRoom);
     }
     public override void EnterState()
     {
         gameObject.SetActive(true);
+        //RefreshLobbyList();
     }
 
     public override void ExitState()
@@ -27,14 +35,25 @@ public class NetworkUIState : UIBaseStates
     {
         return stateName;
     }
-    void HostOnClick()
+    
+
+    async void RefreshLobbyList()
     {
-        NetworkManager.Singleton.StartHost();
+        foreach (Transform child in lobbyContent)
+            Destroy(child.gameObject);
+
+        List<Lobby> lobbies = await LobbyBrowserManager.Instance.GetLobbyList();
+
+        foreach (Lobby lobby in lobbies)
+        {
+            GameObject item = Instantiate(lobbyItemPrefab, lobbyContent);
+            item.GetComponent<LobbyItemUI>().Setup(lobby);
+        }
     }
-    void ClientOnClick()
+    void CreateRoom()
     {
-        UnityTransport transport = (UnityTransport) NetworkManager.Singleton.NetworkConfig.NetworkTransport;
-        //transport.ConnectionData.Address = "192.168.1.39";
-        NetworkManager.Singleton.StartClient();
+        if(roomName.text == "" || roomName.text.IsNullOrEmpty()) return;
+        LobbyBrowserManager.Instance.CreateLobby(roomName.text);
     }
+
 }
