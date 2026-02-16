@@ -23,11 +23,12 @@ public class NetworkUIState : UIBaseStates
     public override void EnterState()
     {
         gameObject.SetActive(true);
-        //RefreshLobbyList();
     }
 
     public override void ExitState()
     {
+        foreach (Transform child in lobbyContent)
+            Destroy(child.gameObject);
         gameObject.SetActive(false);
     }
 

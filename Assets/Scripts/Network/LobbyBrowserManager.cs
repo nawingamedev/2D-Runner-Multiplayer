@@ -10,6 +10,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
+
 public class LobbyBrowserManager : MonoBehaviour
 {
     public static LobbyBrowserManager Instance;
@@ -42,7 +43,6 @@ public class LobbyBrowserManager : MonoBehaviour
         var relayData = AllocationUtils.ToRelayServerData(allocation,"dtls");
         transport.SetRelayServerData(relayData);
         NetworkManager.Singleton.StartHost();
-        GetComponent<LobbyHeartbeat>().enabled = true;
 
         Debug.Log("Lobby Created: " + currentLobby.Name);
     }
@@ -70,7 +70,6 @@ public class LobbyBrowserManager : MonoBehaviour
         var relayData = AllocationUtils.ToRelayServerData(allocation,"dtls");
         transport.SetRelayServerData(relayData);
         NetworkManager.Singleton.StartClient();
-        GetComponent<LobbyHeartbeat>().enabled = false;
 
         Debug.Log("Joined Lobby: " + currentLobby.Name);
     }

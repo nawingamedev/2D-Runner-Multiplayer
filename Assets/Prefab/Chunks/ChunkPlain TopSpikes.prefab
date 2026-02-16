@@ -33,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 5653976988375781177}
   - {fileID: 8564957578348053281}
-  - {fileID: 8078977261759708906}
   - {fileID: 5631320452667469365}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,37 +280,6 @@ Transform:
   - {fileID: 4036992171940202434}
   m_Father: {fileID: 394241414422784926}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!1 &3954169666801977584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2386707465427181932}
-  m_Layer: 0
-  m_Name: coin_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2386707465427181932
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3954169666801977584}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8078977261759708906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4160180085852323237
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,39 +442,6 @@ PolygonCollider2D:
       - {x: 1.22, y: -1.42}
       - {x: 1.23, y: -1.39}
   m_UseDelaunayMesh: 0
---- !u!1 &4918840578301405208
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8078977261759708906}
-  m_Layer: 0
-  m_Name: CoinPoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8078977261759708906
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4918840578301405208}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2386707465427181932}
-  - {fileID: 7668404256186235060}
-  m_Father: {fileID: 394241414422784926}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5083964435017086295
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +453,7 @@ GameObject:
   - component: {fileID: 5653976988375781177}
   - component: {fileID: 4615939907493714616}
   - component: {fileID: 4866585721034472546}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Group-7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,37 +903,6 @@ PolygonCollider2D:
       - {x: 1.22, y: -1.42}
       - {x: 1.23, y: -1.39}
   m_UseDelaunayMesh: 0
---- !u!1 &7152406560775254508
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7668404256186235060}
-  m_Layer: 0
-  m_Name: coin_1 (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7668404256186235060
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7152406560775254508}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.97, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8078977261759708906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8020069993470586077
 GameObject:
   m_ObjectHideFlags: 0

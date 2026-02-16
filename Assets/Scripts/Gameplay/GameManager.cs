@@ -32,6 +32,8 @@ public class GameManager : NetworkBehaviour
         {
             NetworkManager.Singleton.OnClientConnectedCallback += OnNetworkConnectedCallBack;
         }
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
+        NetworkManager.Singleton.OnServerStopped += OnServerStopped;
     }
     void OnNetworkConnectedCallBack(ulong obj)
     {
@@ -58,6 +60,7 @@ public class GameManager : NetworkBehaviour
     {
         TriggerGameStartRpc();
     }
+    
     void SetPlayerID(PlayerNetwork.PlayerId _playerId)
     {
         playerId = _playerId;
@@ -68,7 +71,16 @@ public class GameManager : NetworkBehaviour
     }
     void OnRestart()
     {
-        Debug.Log("Nawin Restart Game");
         RestartRpc();
+    }
+    void OnDisconnect(ulong id)
+    {
+        UIStateMachine.instance.ChangeState(uiStateName.NetworkState);
+        NetworkManager.Singleton.Shutdown();
+    }
+    void OnServerStopped(bool isHost)
+    {
+        UIStateMachine.instance.ChangeState(uiStateName.NetworkState);
+        NetworkManager.Singleton.Shutdown();
     }
 }

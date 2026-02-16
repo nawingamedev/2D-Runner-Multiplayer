@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762a8ffc94286449f84c41f704d5e1f3, type: 3}
   m_Name: PlatformData
   m_EditorClassIdentifier: Assembly-CSharp::PlatformData
-  length: 3
-  obstacleFrequency: 5
+  length: 10
+  obstacleFrequency: 2
   plainPlank: {fileID: 6083119119612421198, guid: 8597b7a247187429aa6fedcb8227e622, type: 3}
   obstaclePlanks:
   - {fileID: 7031953976995044971, guid: 4c169eedf92a244fc98ebda0c9ee55eb, type: 3}

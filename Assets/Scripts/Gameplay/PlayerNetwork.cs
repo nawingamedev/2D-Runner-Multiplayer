@@ -205,6 +205,7 @@ public class PlayerNetwork : NetworkBehaviour
         if(!IsServer) return;
         if (collision.gameObject.CompareTag("Finish"))
         {
+            collision.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             OnGameOverEvent?.Invoke(playerColor.Value);
         }
     }

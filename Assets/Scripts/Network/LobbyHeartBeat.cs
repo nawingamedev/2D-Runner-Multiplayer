@@ -1,10 +1,16 @@
 using Unity.Services.Lobbies;
 using UnityEngine;
 using System.Threading.Tasks;
+using Unity.Netcode;
 
 public class LobbyHeartbeat : MonoBehaviour
 {
-    async void Start()
+    void Start()
+    {
+        if (!NetworkManager.Singleton.IsHost) return;
+        StartLobby();
+    }
+    async void StartLobby()
     {
         while (true)
         {
