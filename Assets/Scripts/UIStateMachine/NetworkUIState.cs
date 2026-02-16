@@ -10,8 +10,8 @@ public class NetworkUIState : UIBaseStates
     void Awake()
     {
         stateName = uiStateName.NetworkState;
-        hostButton.onClick.AddListener(HostOnClick);
-        clientButton.onClick.AddListener(ClientOnClick);
+        //hostButton.onClick.AddListener(HostOnClick);
+        //clientButton.onClick.AddListener(ClientOnClick);
     }
     public override void EnterState()
     {

@@ -21,7 +21,14 @@ public class LevelGenerator : NetworkBehaviour
     }
     [Rpc(SendTo.Server)]
     private void SpawnPlankServerRpc()
-    {    
+    {
+        if (chunks.Count > 1)
+        {
+            foreach(GameObject chunk in chunks)
+            {
+                Destroy(chunk);
+            }
+        }
         for(int i = 0; i < platformData.length; i++)
         {
             GameObject prefab;

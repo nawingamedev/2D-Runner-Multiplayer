@@ -27,6 +27,7 @@ public class GameManager : NetworkBehaviour
     {
         PlayerNetwork.OnGameOverEvent += OnPlayerGameOver;
         PlayerNetwork.OnSetPlayerId += SetPlayerID;
+        GameOverState.OnRestart += OnRestart;
         if (IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback += OnNetworkConnectedCallBack;
@@ -49,18 +50,25 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     void WinnerRpc(PlayerNetwork.PlayerId winnerId)
     {
-        Debug.Log($"Nawin ServerRpc winner is {winnerId} {playerId == winnerId}");
         UIStateMachine.instance.ChangeState(uiStateName.GameOverState);
         OnGameOverEvent?.Invoke(playerId == winnerId);
+    }
+    [Rpc(SendTo.Server)]
+    void RestartRpc()
+    {
+        TriggerGameStartRpc();
     }
     void SetPlayerID(PlayerNetwork.PlayerId _playerId)
     {
         playerId = _playerId;
-        Debug.Log("Nawin My PlayerID "+playerId);
     }
     void OnPlayerGameOver(PlayerNetwork.PlayerId id)
     {
-        Debug.Log($"Nawin OnPlayerGameOver {id} is Winner");
         WinnerRpc(id);
+    }
+    void OnRestart()
+    {
+        Debug.Log("Nawin Restart Game");
+        RestartRpc();
     }
 }

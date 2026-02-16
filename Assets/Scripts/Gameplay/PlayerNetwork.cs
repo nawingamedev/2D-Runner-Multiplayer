@@ -92,6 +92,7 @@ public class PlayerNetwork : NetworkBehaviour
             transform.position = new Vector3(5, 2);
         else
             transform.position = new Vector3(8, 2);
+        direction = 0;
     }
 
     void OnPlayerColorChanged(PlayerId oldVal, PlayerId newVal)
@@ -124,13 +125,11 @@ public class PlayerNetwork : NetworkBehaviour
     }
     void JumpInput()
     {
-        Debug.Log($"Nawin Got JumpInput Grounded :{isGrounded} sliding :{isSliding}");
         if(!IsOwner) return;
         JumpServerRpc();
     }
     void SlideInput()
     {
-        Debug.Log($"Nawin Got SlideInput Grounded :{isGrounded} sliding :{isSliding}");
         if(!IsOwner) return;
         SlideServerRpc();
     }
@@ -173,7 +172,6 @@ public class PlayerNetwork : NetworkBehaviour
             groundRadius,
             groundLayer
         );
-        Debug.Log($"Nawin Actual Ground {isGrounded} ");
     }
     private IEnumerator SlideRoutine()
     {
@@ -204,12 +202,9 @@ public class PlayerNetwork : NetworkBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Nawin Collision before Owner");
         if(!IsServer) return;
-        Debug.Log("Nawin Collision On Owner" + collision.gameObject.tag);
         if (collision.gameObject.CompareTag("Finish"))
         {
-            Debug.Log($"Nawin Player {playerColor.Value} Win!!");
             OnGameOverEvent?.Invoke(playerColor.Value);
         }
     }
